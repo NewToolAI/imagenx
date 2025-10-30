@@ -1,7 +1,7 @@
 from typing import List, Dict
 from volcenginesdkarkruntime import Ark
 
-from image_generator.base.base_image_generator import BaseImageGenerator
+from imgenx.image_generator.base.base_image_generator import BaseImageGenerator
 
 
 class DoubaoImageGenerator(BaseImageGenerator):

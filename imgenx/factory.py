@@ -1,7 +1,7 @@
 from pathlib import Path
 from functools import cache
 from importlib import import_module
-from image_generator.base.base_image_generator import BaseImageGenerator
+from imgenx.image_generator.base.base_image_generator import BaseImageGenerator
 
 
 @cache
@@ -11,7 +11,7 @@ def create_image_generator(model: str, api_key: str) -> BaseImageGenerator:
     if provider not in get_providers():
         raise ValueError(f'Provider {provider} not found.')
 
-    generator_package = f'image_generator.generators.{provider}_image_generator'
+    generator_package = f'imgenx.image_generator.generators.{provider}_image_generator'
     generator_class = f'{provider.capitalize()}ImageGenerator'
 
     try:
@@ -26,20 +26,7 @@ def create_image_generator(model: str, api_key: str) -> BaseImageGenerator:
 @cache
 def get_providers():
     providers = []
-    for path in Path('image_generator/generators').glob('*_image_generator.py'):
+    for path in Path('imgenx/image_generator/generators').glob('*_image_generator.py'):
         providers.append(path.stem.split('_')[0])
 
     return providers
-
-
-if __name__ == '__main__':
-    import os
-    from dotenv import load_dotenv
-    load_dotenv()
-
-    generator = create_image_generator(
-        model='doubao',
-        api_key=os.getenv('ARK_API_KEY'),
-    )
-    print(generator)
-    

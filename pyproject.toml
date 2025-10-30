@@ -1,11 +1,12 @@
 [project]
-name = "imgenx-mcp-server"
+name = "imgenx"
 version = "0.0.1"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
     "fastmcp>=2.12.4",
+    "python-dotenv>=1.1.1",
     "volcengine-python-sdk[ark]>=4.0.22",
 ]
 
@@ -13,5 +14,4 @@ dependencies = [
 repository = "https://github.com/NewToolAI/imgenx_mcp_server"
 
 [project.scripts]
-imgenx-mcp_server = "imgenx_mcp_server.server:run"
-imgenx_mcp_server = "imgenx_mcp_server.server:run"
+imgenx = "imgenx.main:run"
