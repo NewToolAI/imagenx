@@ -6,7 +6,7 @@
   [![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://www.python.org/downloads/)
   [![MCP](https://img.shields.io/badge/MCP-Compatible-green.svg)](https://modelcontextprotocol.io/)
   [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-  [![GitHub Stars](https://img.shields.io/github/stars/NewToolAI/imgenx_mcp_server?style=social)](https://github.com/NewToolAI/imgenx_mcp_server)
+  [![GitHub Stars](https://img.shields.io/github/stars/NewToolAI/imgenx_mcp_server?style=social)](https://github.com/NewToolAI/imgenx-mcp-server)
   
   **一个基于 Model Context Protocol (MCP) 的图片生成服务器，支持通过文本描述生成图片并下载到本地。**
 </div>
@@ -74,7 +74,7 @@ imgenx_mcp_server --transport streamable-http --host 0.0.0.0 --port 8000
 根据文本描述生成图片。
 
 **参数:**
-- `prompt` (str): 图片描述文本
+- `prompt` (str): 图片生成的提示词
 - `size` (str): 图片尺寸，支持：
   - 分辨率: `1K`, `2K`, `4K`
   - 像素尺寸: `2048x2048`, `2304x1728`, `1728x2304`, `2560x1440`, `1440x2560`, `2496x1664`, `1664x2496`, `3024x1296`

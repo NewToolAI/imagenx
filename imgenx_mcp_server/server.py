@@ -17,16 +17,22 @@ mcp = FastMCP(
 )
 
 
-headers = get_http_headers(include_all=True)
-model = headers.get('model', os.getenv('model'))
-api_key = headers.get('api_key', os.getenv('api_key'))
-
-generator = factory.create_image_generator(model, api_key)
 
 
 @mcp.tool(description=re.sub(r' +', ' ', generator.text_to_image.__doc__))
 def text_to_image(prompt: str, size: str) -> List[Dict[str, str]]:
+    headers = get_http_headers(include_all=True)
+    model = headers.get('model', os.getenv('model'))
+    api_key = headers.get('api_key', os.getenv('api_key'))
+
+    if model is None:
+        raise ToolError('model is None')
+
+    if api_key is None:
+        raise ToolError('api_key is None')
+
     try:
+        generator = factory.create_image_generator(model, api_key)
         url_list = generator.text_to_image(prompt, size)
     except Exception as e:
         raise ToolError(f'Error: {e}')
