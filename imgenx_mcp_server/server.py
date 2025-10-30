@@ -57,7 +57,7 @@ def download_image(url: str, path: str) -> str:
     return 'success'
 
 
-if __name__ == "__main__":
+def run():
     from argparse import ArgumentParser
 
     parser = ArgumentParser()
@@ -70,3 +70,7 @@ if __name__ == "__main__":
         mcp.run(transport='stdio')
     else:
         mcp.run(transport=args.transport, host=args.host, port=args.port)
+
+
+if __name__ == '__main__':
+    run()

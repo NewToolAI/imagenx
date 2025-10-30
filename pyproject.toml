@@ -8,3 +8,10 @@ dependencies = [
     "fastmcp>=2.12.4",
     "volcengine-python-sdk[ark]>=4.0.22",
 ]
+
+[project.urls]
+repository = "https://github.com/NewToolAI/imgenx_mcp_server"
+
+[project.scripts]
+imgenx-mcp_server = "imgenx.server:run"
+imgenx_mcp_server = "imgenx.server:run"

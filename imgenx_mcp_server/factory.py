@@ -28,6 +28,7 @@ def get_providers():
     providers = []
     for path in Path('image_generator/generators').glob('*_image_generator.py'):
         providers.append(path.stem.split('_')[0])
+
     return providers
 
 
