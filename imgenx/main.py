@@ -11,7 +11,7 @@ def run():
     server_parser.add_argument('--port', default=8000, type=int, help='Port to bind to.')
 
     gen_parser = subparsers.add_parser('gen', help='生成图片')
-    gen_parser.add_argument('--prompt', required=True, help='生成图片的提示词')
+    gen_parser.add_argument('prompt', help='生成图片的提示词')
     gen_parser.add_argument('--size', default='2K', help='生成图像的分辨率或宽高像素值')
     gen_parser.add_argument('--output', default='imgenx', help='输出文件或目录路径')
 

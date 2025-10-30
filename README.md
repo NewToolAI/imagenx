@@ -1,12 +1,12 @@
 <div align="center">
-  <img src="assets/logo.jpeg" alt="ImgenX MCP Server Logo" width="200" height="200">
+  <img src="logo.jpeg" alt="ImgenX MCP Server Logo" width="200" height="200">
   
   # ImgenX MCP Server
   
   [![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://www.python.org/downloads/)
   [![MCP](https://img.shields.io/badge/MCP-Compatible-green.svg)](https://modelcontextprotocol.io/)
-  [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-  [![GitHub Stars](https://img.shields.io/github/stars/NewToolAI/imgenx_mcp_server?style=social)](https://github.com/NewToolAI/imgenx-mcp-server)
+  [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](#许可证)
+  [![GitHub Stars](https://img.shields.io/github/stars/NewToolAI/imgenx_mcp_server?style=social)](https://github.com/NewToolAI/imgenx_mcp_server)
   
   **一个基于 Model Context Protocol (MCP) 的图片生成服务器，支持通过文本描述生成图片并下载到本地。**
 </div>
@@ -43,18 +43,29 @@ cd imgenx-mcp-server
 pip install -e .
 ```
 
+可选：如果你使用 `uv` 管理环境与依赖（推荐），可以：
+```bash
+uv venv
+uv pip install -e .
+```
+
 ## 使用方法
 
 ### 作为 MCP 服务器运行
 
 #### 标准输入输出模式 (stdio)
 ```bash
-imgenx_mcp_server --transport stdio
+imgenx server --transport stdio
 ```
 
 #### HTTP 服务器模式
 ```bash
-imgenx_mcp_server --transport streamable-http --host 0.0.0.0 --port 8000
+imgenx server --transport streamable-http --host 0.0.0.0 --port 8000
+```
+
+#### Server-Sent Events (SSE) 模式
+```bash
+imgenx server --transport sse --host 0.0.0.0 --port 8000
 ```
 
 ### 配置
@@ -67,6 +78,20 @@ imgenx_mcp_server --transport streamable-http --host 0.0.0.0 --port 8000
 这些参数可以通过以下方式提供：
 1. HTTP 请求头（推荐）
 2. 环境变量
+
+示例（环境变量）：
+```bash
+export IMGENX_MODEL="doubao:your_model_name"
+export IMGENX_API_KEY="your_api_key"
+```
+
+### 直接使用命令行生成图片
+
+```bash
+export IMGENX_MODEL="doubao:your_model_name"
+export IMGENX_API_KEY="your_api_key"
+imgenx gen --prompt "一只在云上飞翔的猫" --size 2K --output ./images
+```
 
 ### 可用工具
 
@@ -94,16 +119,19 @@ imgenx_mcp_server --transport streamable-http --host 0.0.0.0 --port 8000
 
 ```
 imgenx-mcp-server/
-├── imgenx_mcp_server/
-│   ├── server.py              # MCP 服务器主文件
-│   ├── factory.py             # 图片生成器工厂类
+├── imgenx/
+│   ├── server.py                  # MCP 服务器主文件（工具定义与运行）
+│   ├── factory.py                 # 图片生成器工厂
+│   ├── main.py                    # CLI 入口（imgenx）
+│   ├── script.py                  # 命令行生成图片脚本
 │   └── image_generator/
 │       ├── base/
 │       │   └── base_image_generator.py  # 基础生成器接口
 │       └── generators/
 │           └── doubao_image_generator.py  # 豆包生成器实现
-├── pyproject.toml             # 项目配置
-└── README.md                  # 项目说明
+├── pyproject.toml                 # 项目配置（入口脚本等）
+├── uv.lock                        # 依赖锁（可选）
+└── README.md                      # 项目说明
 ```
 
 ## 扩展新的服务提供商
@@ -131,6 +159,7 @@ class YourProviderImageGenerator(BaseImageGenerator):
 ## 依赖项
 
 - `fastmcp>=2.12.4`: MCP 协议实现
+- `python-dotenv>=1.1.1`: 加载环境变量
 - `volcengine-python-sdk[ark]>=4.0.22`: 火山引擎 SDK（用于豆包服务）
 - `requests`: HTTP 请求库
 
