@@ -34,7 +34,6 @@ def text_to_image(prompt: str, size: str) -> List[Dict[str, str]]:
         List[Dict[str: str]]: 图片url列表。
     '''
     headers = get_http_headers(include_all=True)
-    print(headers)
     model = headers.get('imgenx_model', os.getenv('IMGENX_MODEL'))
     api_key = headers.get('imgenx_api_key', os.getenv('IMGENX_API_KEY'))
 
