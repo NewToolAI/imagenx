@@ -1,0 +1,11 @@
+[project]
+name = "imagix-mcp-server"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "fastmcp>=2.12.4",
+    "pillow>=11.3.0",
+    "volcengine-python-sdk[ark]>=4.0.22",
+]
