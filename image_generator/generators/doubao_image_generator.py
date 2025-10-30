@@ -6,7 +6,7 @@ from base64 import b64decode
 
 from volcenginesdkarkruntime import Ark
 
-from base.base_image_generator import BaseImageGenerator
+from image_generator.base.base_image_generator import BaseImageGenerator
 
 
 class DoubaoImageGenerator(BaseImageGenerator):
@@ -26,7 +26,6 @@ class DoubaoImageGenerator(BaseImageGenerator):
             size (str): 生成图像的分辨率或宽高像素值，
                         分辨率可选值：'1K'、'2K', '4K'。
                         宽高像素可选值：2048x2048、2304x1728、1728x2304、2560x1440、1440x2560、2496x1664、1664x2496、3024x1296
-
         
         Returns:
             List[bytes]: 图片字节流列表。
