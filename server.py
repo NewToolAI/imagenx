@@ -40,14 +40,8 @@ def text_to_image(prompt: str, size: str) -> List[Dict[str, str]]:
     return url_list
 
 
-@mcp.tool
-def read_url(url: str, path: str) -> str:
-    '''读取生成的图片url并保存到本地。
-    
-    Args:
-        url (str): 图片url。
-        path (str): 保存路径。
-    '''
+@mcp.tool(description='读取生成的图片url并保存到本地\n\nArgs:\nurl (str): 图片url\npath (str): 保存路径')
+def download_image(url: str, path: str) -> str:
     path = Path(path)
 
     if path.exists():
@@ -64,4 +58,15 @@ def read_url(url: str, path: str) -> str:
 
 
 if __name__ == "__main__":
-    mcp.run(transport='streamable-http')
+    from argparse import ArgumentParser
+
+    parser = ArgumentParser()
+    parser.add_argument('--transport', default='stdio', help='stdio|sse|streamable-http')
+    parser.add_argument('--host', default='0.0.0.0', help='Host to bind to.')
+    parser.add_argument('--port', default=8000, type=int, help='Port to bind to.')
+    args = parser.parse_args()
+
+    if args.transport == 'stdio':
+        mcp.run(transport='stdio')
+    else:
+        mcp.run(transport=args.transport, host=args.host, port=args.port)
