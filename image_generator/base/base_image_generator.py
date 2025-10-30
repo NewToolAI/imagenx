@@ -1,3 +1,4 @@
+from typing import List, Dict
 from abc import ABC, abstractmethod
 
 
@@ -8,5 +9,5 @@ class BaseImageGenerator(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def text_to_image(self, prompt: str, size: str) -> bytes:
+    def text_to_image(self, prompt: str, size: str) -> List[Dict[str, str]]:
         raise NotImplementedError
