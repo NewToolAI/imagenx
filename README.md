@@ -9,7 +9,7 @@
   [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](#许可证)
   [![GitHub Stars](https://img.shields.io/github/stars/NewToolAI/imgenx_mcp_server?style=social)](https://github.com/NewToolAI/imgenx)
 
-**一个基于豆包API的图片生成命令行工具和MCP Server**
+**一个用AI生成图片的命令行工具和MCP Server**
 </div>
 
 ## 功能特性
@@ -161,7 +161,7 @@ imgenx-mcp-server/
 from typing import List, Dict
 from imgenx.image_generator.base.base_image_generator import BaseImageGenerator
 
-class YourProviderImageGenerator(BaseImageGenerator):
+class ProviderImageGenerator(BaseImageGenerator):
     def __init__(self, model: str, api_key: str):
         self.model = model
         self.api_key = api_key
