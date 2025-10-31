@@ -100,6 +100,23 @@ imgenx server --transport streamable-http --host 0.0.0.0 --port 8000
   }
 }
 ```
+
+#### 云服务免安装
+
+```json
+{
+  "mcpServers": {
+    "imgenx-cloud": {
+      "url": "https://imgenx.fastmcp.app/mcp",
+      "headers": {
+        "IMGENX_MODEL": "doubao:model-name",
+        "IMGENX_API_KEY": "api-key"
+      }
+    }
+  }
+}
+```
+
 ### 可用工具
 
 #### 1. text_to_image
