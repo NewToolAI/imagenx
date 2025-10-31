@@ -7,7 +7,7 @@
   [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](#许可证)
   [![GitHub Stars](https://img.shields.io/github/stars/NewToolAI/imgenx_mcp_server?style=social)](https://github.com/NewToolAI/imgenx)
 
-**一个用AI生成图片的命令行工具和MCP Server**
+**ImageGenX: 一个用AI生成图片的命令行工具和MCP Server**
 </div>
 
 ## 功能特性
