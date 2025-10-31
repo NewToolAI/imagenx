@@ -69,6 +69,7 @@ imgenx gen --size 2048x2048 --output test.jpg 一只在云上飞翔的猫
     "imgenx-mcp": {
       "command": "uvx",
       "args": [
+        "-U",
         "imgenx",
         "server"
       ],
