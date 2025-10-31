@@ -1,3 +1,4 @@
+import base64
 from typing import List, Dict
 from volcenginesdkarkruntime import Ark
 
@@ -14,17 +15,6 @@ class DoubaoImageGenerator(BaseImageGenerator):
         )
 
     def text_to_image(self, prompt: str, size: str) -> List[Dict[str, str]]:
-        '''生成图片。确保用户需要生成图片时调用此工具。
-        
-        Args:
-            prompt (str): 生成图片的提示词
-            size (str): 生成图像的分辨率或宽高像素值
-                        分辨率可选值：'1K'、'2K', '4K'
-                        宽高像素可选值：2048x2048、2304x1728、1728x2304、2560x1440、1440x2560、2496x1664、1664x2496、3024x1296
-        
-        Returns:
-             List[Dict[str: str]]: 图片url列表。
-        '''
         response = self.client.images.generate( 
             model=self.model,
             prompt=prompt,
@@ -43,3 +33,39 @@ class DoubaoImageGenerator(BaseImageGenerator):
             result.append(item)
 
         return result
+
+    def image_to_image(self, prompt: str, images: List[str], size: str) -> List[Dict[str, str]]:
+        if len(images) == 0:
+            pass_images = None
+        else:
+            pass_images = []
+
+        for i in images:
+            if i.startswith('http'):
+                pass_images.append(i)
+            else:
+                pass_images.append(self._image_to_base64(i))
+
+        response = self.client.images.generate( 
+            model=self.model,
+            prompt=prompt,
+            sequential_image_generation='auto',
+            response_format='url',
+            image=pass_images,
+            stream=False,
+            watermark=False
+        ) 
+
+        result = []
+        for item in response.model_dump()['data']:
+            if 'b64_json' in item:
+                item.pop('b64_json')
+
+            result.append(item)
+
+        return result
+
+    def _image_to_base64(self, image_path: str) -> str:
+        with open(image_path, 'rb') as image_file:
+            base64_image = base64.b64encode(image_file.read()).decode('utf-8')
+        return base64_image

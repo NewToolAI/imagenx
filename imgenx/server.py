@@ -22,7 +22,7 @@ mcp = FastMCP(
 
 @mcp.tool
 def text_to_image(prompt: str, size: str) -> List[Dict[str, str]]:
-    '''根据用户要求生成图片。确保用户需要生成图片时调用此工具。
+    '''根据输入的提示词生成图片。确保用户需要生成图片时调用此工具。
     确保用Markdown格式输出图片url，例如：[title](url)
         
     Args:
@@ -47,6 +47,40 @@ def text_to_image(prompt: str, size: str) -> List[Dict[str, str]]:
     try:
         generator = factory.create_image_generator(model, api_key)
         url_list = generator.text_to_image(prompt, size)
+    except Exception as e:
+        raise ToolError(f'Error: {e}')
+
+    return url_list
+
+
+@mcp.tool
+def image_to_image(prompt: str, images: List[str], size: str) -> List[Dict[str, str]]:
+    '''根据输入的提示词和图片生成新图片。确保用户需要生成图片时调用此工具。
+    确保用Markdown格式输出图片url，例如：[title](url)
+        
+    Args:
+        prompt (str): 生成图片的提示词
+        images (List[str]): 输入图片url列表或文件路径列表
+        size (str): 生成图像的分辨率或宽高像素值
+                    分辨率可选值：'1K'、'2K', '4K'
+                    宽高像素可选值：2048x2048、2304x1728、1728x2304、2560x1440、1440x2560、2496x1664、1664x2496、3024x1296
+        
+    Returns:
+        List[Dict[str: str]]: 图片url列表。
+    '''
+    headers = get_http_headers(include_all=True)
+    model = headers.get('imgenx_model', os.getenv('IMGENX_MODEL'))
+    api_key = headers.get('imgenx_api_key', os.getenv('IMGENX_API_KEY'))
+
+    if model is None:
+        raise ToolError('IMGENX_MODEL is None')
+
+    if api_key is None:
+        raise ToolError('IMGENX_API_KEY is None')
+
+    try:
+        generator = factory.create_image_generator(model, api_key)
+        url_list = generator.image_to_image(prompt, images, size)
     except Exception as e:
         raise ToolError(f'Error: {e}')
 

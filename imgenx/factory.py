@@ -26,7 +26,7 @@ def create_image_generator(model: str, api_key: str) -> BaseImageGenerator:
 @cache
 def get_providers():
     providers = []
-    for path in Path('imgenx/image_generator/generators').glob('*_image_generator.py'):
+    for path in (Path(__file__).parent / 'image_generator/generators').glob('*_image_generator.py'):
         providers.append(path.stem.split('_')[0])
 
     return providers
