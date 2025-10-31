@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="logo.png" alt="ImgenX MCP Server Logo" width="800" height="400">
+  <img src="logo.jpg" alt="ImgenX MCP Server Logo" width="800" height="400">
   
   [![Version](https://img.shields.io/badge/Version-0.0.5-brightgreen.svg)](https://github.com/NewToolAI/imgenx_mcp_server/releases)
   [![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://www.python.org/downloads/)
