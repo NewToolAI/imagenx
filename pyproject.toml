@@ -1,6 +1,6 @@
 [project]
 name = "imgenx"
-version = "0.0.5"
+version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -9,10 +9,11 @@ dependencies = [
     "python-dotenv>=1.1.1",
     "volcengine-python-sdk[ark]>=4.0.22",
     "requests>=2.25.0",
+    "pillow>=12.0.0",
 ]
 
 [project.urls]
-repository = "https://github.com/NewToolAI/imgenx_mcp_server"
+repository = "https://github.com/NewToolAI/imgenx"
 
 [project.scripts]
 imgenx = "imgenx.main:run"
