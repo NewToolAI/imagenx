@@ -9,6 +9,8 @@
 **ImgenX: AI图片生成与图片处理的命令行工具和MCP Server**
 </div>
 
+https://github.com/user-attachments/assets/92749d6f-727e-4874-a008-6ded8b4d9e7b
+
 ## 功能特性
 
 - **文本生成图片**: 根据文本描述生成图片
