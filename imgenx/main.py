@@ -35,10 +35,10 @@ def run():
             mcp.run(transport=args.transport, host=args.host, port=args.port)
     elif args.command == 'image':
         from imgenx import script
-        script.run(prompt=args.prompt, size=args.size, output=args.output, images=args.images)
+        script.gen_image(prompt=args.prompt, size=args.size, output=args.output, images=args.images)
     elif args.command == 'video':
         from imgenx import script
-        script.run(prompt=args.prompt, first_frame=args.first_frame, last_frame=args.last_frame,
+        script.gen_video(prompt=args.prompt, first_frame=args.first_frame, last_frame=args.last_frame,
                    resolution=args.resolution, ratio=args.ratio, duration=args.duration, output=args.output)
     else:
         raise ValueError(f'Unknown command: {args.command}')

@@ -71,7 +71,7 @@ def gen_image(prompt: str, size: str, output: str, images: List[str] = None):
         print(f'Save image to {path}')
 
 
-def gen_video(prompt: str, first_frame: str = None, last_frame: str|None = None,
+def gen_video(prompt: str, first_frame: str|None = None, last_frame: str|None = None,
               resolution: str = '720p', ratio: str = '16:9', duration: int = 5, output: str = None):
     print('Generate video...')
 
@@ -88,12 +88,15 @@ def gen_video(prompt: str, first_frame: str = None, last_frame: str|None = None,
     if output is None:
         output = f'{datetime.now().strftime("%Y-%m-%d_%H:%M:%S")}.mp4'
     else:
-        output = Path(output)
+        output = Path(output).with_name(f'{Path(output).stem}_{datetime.now().strftime("%Y-%m-%d_%H:%M:%S")}{Path(output).suffix}')
 
     if output.exists() and output.is_file():
         raise ValueError(f'Output path {output} already exists.')
 
-    url = image_to_video(model, api_key, prompt, first_frame, last_frame, resolution, ratio, duration)
+    if first_frame is None and last_frame is None:
+        url = text_to_video(model, api_key, prompt, resolution, ratio, duration)
+    else:
+        url = image_to_video(model, api_key, prompt, first_frame, last_frame, resolution, ratio, duration)
 
     response = requests.get(url)
     Path(output).write_bytes(response.content)
