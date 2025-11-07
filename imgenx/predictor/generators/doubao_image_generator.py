@@ -53,6 +53,7 @@ class DoubaoImageGenerator(BaseImageGenerator):
             sequential_image_generation='auto',
             response_format='url',
             image=pass_images,
+            size=size,
             stream=False,
             watermark=False
         ) 
