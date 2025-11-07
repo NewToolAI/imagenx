@@ -1,4 +1,4 @@
-demo<div align="center">
+<div align="center">
   <img src="logo.jpg" alt="ImgenX MCP Server Logo" width="800" height="400">
   
   [![Version](https://img.shields.io/badge/Version-0.2.0-brightgreen.svg)](https://github.com/NewToolAI/imgenx/releases)
