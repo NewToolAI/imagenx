@@ -1,4 +1,5 @@
 import re
+from typing import Tuple
 from pathlib import Path
 from io import BytesIO
 
@@ -92,6 +93,14 @@ def adjust_image(image: str, output: str, brightness: float = 1.0, contrast: flo
     img = ImageEnhance.Color(img).enhance(saturation)
 
     _save_image(img, output)
+
+
+def paste_image(front_image: str, backgroud_image: str, position: Tuple[int, int], output: str):
+    front_img = _load_image(front_image)
+    back_img = _load_image(backgroud_image)
+
+    back_img.paste(front_img, tuple(position))
+    _save_image(back_img, output)
 
 
 def _load_image(image: str) -> Image.Image:

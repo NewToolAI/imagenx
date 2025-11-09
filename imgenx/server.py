@@ -1,7 +1,7 @@
 import os
 import re
 from pathlib import Path
-from typing import List, Dict
+from typing import List, Dict, Tuple
 
 import requests
 from dotenv import load_dotenv
@@ -185,6 +185,9 @@ def analyze_image(prompt: str, image: str) -> str:
         raise ToolError('IMGENX_API_KEY is None')
 
     try:
+        info = operator.get_image_info(image)
+        prompt = f'image info: {info}\n\n{prompt}'
+
         analyzer = factory.create_image_analyzer(model, api_key)
         result = analyzer.analyze(prompt, image)
     except Exception as e:
@@ -310,6 +313,30 @@ def adjust_image(image: str, output: str, brightness: float = 1.0, contrast: flo
     '''
     try:
         operator.adjust_image(image, output, brightness=brightness, contrast=contrast, saturation=saturation)
+    except Exception as e:
+        raise ToolError(f'Error: {e}')
+
+    p = Path(output).resolve()
+    return {'title': p.name, 'path': str(p)}
+
+
+@mcp.tool
+def paste_image(front_image: str, background_image: str, output: str, position: Tuple[int, int]) -> Dict[str, str]:
+    '''将图片粘贴到背景图片上，确保用户需要粘贴图片时调用此工具。
+    粘贴图片前，需要用`resize_image`工具调整`front_image`到适合的尺寸。
+    调用`analyze_image`工具确定粘贴位置。
+
+    Args:
+        front_image (str): 图片路径或URL
+        background_image (str): 背景图片路径或URL
+        output (str): 输出文件路径
+        position (Tuple[int, int]): 粘贴位置的(x, y)，背景图片的左上角像素坐标
+
+    Returns:
+        Dict[str,str]: 生成图片的 path
+    '''
+    try:
+        operator.paste_image(front_image, background_image, position, output)
     except Exception as e:
         raise ToolError(f'Error: {e}')
 
