@@ -141,15 +141,6 @@ imgenx server --transport streamable-http --no_tools text_to_video image_to_vide
 #### 5. crop_image
 裁剪图片。
 
-#### 9. text_to_video
-根据文本提示生成视频。
-
-#### 10. image_to_video
-基于首帧与可选尾帧生成视频。
-
-#### 11. analyze_image
-分析图片内容，返回结构化或文本结果。
-
 #### 6. resize_image
 调整图片尺寸。
 
@@ -158,6 +149,15 @@ imgenx server --transport streamable-http --no_tools text_to_video image_to_vide
 
 #### 8. adjust_image
 调整图片的亮度、对比度和饱和度。
+
+#### 9. text_to_video
+根据文本提示生成视频。
+
+#### 10. image_to_video
+基于首帧与可选尾帧生成视频。
+
+#### 11. analyze_image
+分析图片内容，返回结构化或文本结果。
 
 #### 12. paste_image
 将图片粘贴到背景图片的指定位置。
