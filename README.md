@@ -129,6 +129,25 @@ imgenx server --transport streamable-http --disable_tools text_to_video image_to
 }
 ```
 
+#### Cloud 免安装 (没有工具 download)
+```
+{
+  "mcpServers": {
+    "imgenx-mcp-cloud": {
+      "url": "https://imgenx.fastmcp.app/mcp",
+      "headers": {
+        "IMGENX_IMAGE_TO_IMAGE": "aliyun:qwen-image-edit-plus",
+        "IMGENX_TEXT_TO_IMAGE": "aliyun:qwen-image-plus",
+        "IMGENX_IMAGE_TO_VIDEO": "aliyun:wan2.5-i2v-preview",
+        "IMGENX_TEXT_TO_VIDEO": "aliyun:wan2.5-t2v-preview",
+        "IMGENX_INSPECT_IMAGE": "aliyun:qwen3-vl-flash",
+        "IMGENX_ALIYUN_API_KEY": "api-key"
+      }
+    }
+  }
+}
+```
+
 ### 可用工具
 
 #### 1. text_to_image
