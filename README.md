@@ -207,12 +207,8 @@ imgenx/
 
 要扩展新的服务提供商：
 
-1. 在 `imgenx/predictor/generators/` 目录下创建实现文件，命名规范：
-   - 图片生成器：`{provider}_image_generator.py`
-   - 视频生成器（可选）：`{provider}_video_generator.py`
-   - 图片分析器（可选）：`{provider}_image_analyzer.py`
+1. 实现相应的基类接口，例如 `BaseTextToImage`：
 
-2. 实现相应的基类接口，例如 `BaseTextToImage`：
 ```python
 from imgenx.predictor.base.base_text_to_image import BaseTextToImage
 
@@ -228,7 +224,7 @@ class ProviderTextToImage(BaseTextToImage):
         pass
 ```
 
-3. 工厂类会自动发现并加载新的实现（基于文件名），模型字符串需为 `provider:model` 格式，例如：`doubao:doubao-seedream-4-0-250828`
+2. 工厂类会自动发现并加载新的实现（基于文件名），模型字符串需为 `provider:model` 格式，例如：`doubao:doubao-seedream-4-0-250828`
 
 ## 依赖项
 
