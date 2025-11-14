@@ -1,12 +1,12 @@
 <div align="center">
   <img src="logo.jpg" alt="ImgenX MCP Server Logo" width="800" height="400">
   
-  [![Version](https://img.shields.io/badge/Version-0.2.3-brightgreen.svg)](https://github.com/NewToolAI/imgenx/releases)
+  [![Version](https://img.shields.io/badge/Version-0.3.0-brightgreen.svg)](https://github.com/NewToolAI/imgenx/releases)
   [![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://www.python.org/downloads/)
   [![MCP](https://img.shields.io/badge/MCP-Compatible-green.svg)](https://modelcontextprotocol.io/)
   [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](#许可证)
 
-**一站式 AI 图片/视频生成与处理套件，支持文本/图生图、文本/图生视频、图片分析与常用编辑（裁剪、缩放、转换、调参），可作为命令行工具或 MCP Server 使用**
+**AI 图片/视频生成与处理套件，支持文本/图生图、文本/图生视频、图片分析与常用编辑（裁剪、缩放、转换、调参），可作为命令行工具或 MCP Server 使用**
 </div>
 
 https://github.com/user-attachments/assets/92749d6f-727e-4874-a008-6ded8b4d9e7b
@@ -32,16 +32,19 @@ https://github.com/user-attachments/assets/92749d6f-727e-4874-a008-6ded8b4d9e7b
 ## 当前支持的服务提供商
 
 - **豆包 (Doubao)**: 基于火山引擎的图片生成服务
+- **阿里云 (Aliyun)**: 基于阿里云通义千问的图片生成服务
 
 ## 安装
 
 ### 配置环境变量
 
 ```bash
-export IMGENX_IMAGE_MODEL="doubao:doubao-seedream-4-0-250828"   # 图片生成模型
-export IMGENX_VIDEO_MODEL="doubao:doubao-seedance-1-0-pro-fast-251015" # 视频生成模型（可选）
-export IMGENX_ANALYZER_MODEL="doubao:doubao-seed-1-6-vision-250815"   # 图片分析模型（可选）
-export IMGENX_API_KEY="your_api_key"
+IMGENX_IMAGE_TO_IMAGE="provider:model"
+IMGENX_TEXT_TO_IMAGE="provider:model"
+IMGENX_IMAGE_TO_VIDEO="provider:model"
+IMGENX_TEXT_TO_VIDEO="provider:model"
+IMGENX_INSPECT_IMAGE="provier:model"
+IMGENX_<provider>_API_KEY="api-key"
 ```
 或写入 .env 文件中
 
@@ -67,13 +70,10 @@ pip install -e .
 ```
 # 生成图片（文本或图生图）
 imgenx image "一只在云上飞翔的猫"
-imgenx image "一只在云上飞翔的猫" --size 2K
-imgenx image "一只在云上飞翔的猫" --size 2048x2048 --output test.jpg
-imgenx image "一只在云上飞翔的猫" --images test.jpg --size 2048x2048 --output out_dir/
 
 # 生成视频（文本或基于首尾帧）
-imgenx video "一个人在运动" --resolution 720p --ratio 16:9 --duration 5 --output video.mp4
-imgenx video "一个人在运动" --first_frame logo.jpg --resolution 720p --ratio 16:9 --duration 5 --output video.mp4
+imgenx video "一个人在运动"
+imgenx video "一个人在运动" --first_frame logo.jpg
 ```
 
 ### 作为 MCP 服务器运行
@@ -82,20 +82,24 @@ imgenx video "一个人在运动" --first_frame logo.jpg --resolution 720p --rat
 ```json
 {
   "mcpServers": {
-    "imgenx-mcp": {
+    "imgenx-cli": {
       "command": "uvx",
       "args": [
         "-U",
         "imgenx",
-        "server"
+        "server",
+        "--diable_tools",
+        "text_to_video image_to_video"
       ],
       "env": {
-        "IMGENX_IMAGE_MODEL": "doubao:doubao-seedream-4-0-250828",
-        "IMGENX_VIDEO_MODEL": "doubao:doubao-seedance-1-0-pro-fast-251015",
-        "IMGENX_ANALYZER_MODEL": "doubao:doubao-seed-1-6-vision-250815",
-        "IMGENX_API_KEY": "api-key"
-      },
-      "timeout": 600
+        "IMGENX_IMAGE_TO_IMAGE": "doubao:doubao-seedream-4-0-250828",
+        "IMGENX_TEXT_TO_IMAGE": "doubao:doubao-seedream-4-0-250828",
+        "IMGENX_IMAGE_TO_VIDEO": "doubao:doubao-seedance-1-0-pro-fast-251015",
+        "IMGENX_TEXT_TO_VIDEO": "doubao:doubao-seedance-1-0-pro-fast-251015",
+        "IMGENX_INSPECT_IMAGE": "aliyun:qwen3-vl-flash",
+        "IMGENX_DOUBAO_API_KEY": "api-key",
+        "IMGENX_ALIYUN_API_KEY": "api-key"
+      }
     }
   }
 }
@@ -104,21 +108,22 @@ imgenx video "一个人在运动" --first_frame logo.jpg --resolution 720p --rat
 #### HTTP 服务器模式
 ```bash
 imgenx server --transport streamable-http --host 0.0.0.0 --port 8000
-imgenx server --transport streamable-http --no_tools text_to_video image_to_video  # 禁用视频生成工具
+imgenx server --transport streamable-http --disable_tools text_to_video image_to_video  # 禁用视频生成工具
 ```
 
 ```json
 {
   "mcpServers": {
-    "imgenx-mcp": {
+    "imgenx-mcp-aliyun": {
       "url": "http://127.0.0.1:8000/mcp",
       "headers": {
-        "IMGENX_IMAGE_MODEL": "doubao:doubao-seedream-4-0-250828",
-        "IMGENX_VIDEO_MODEL": "doubao:doubao-seedance-1-0-pro-fast-251015",
-        "IMGENX_ANALYZER_MODEL": "doubao:doubao-seed-1-6-vision-250815",
-        "IMGENX_API_KEY": "api-key"
-      },
-      "timeout": 600
+        "IMGENX_IMAGE_TO_IMAGE": "aliyun:qwen-image-edit-plus",
+        "IMGENX_TEXT_TO_IMAGE": "aliyun:qwen-image-plus",
+        "IMGENX_IMAGE_TO_VIDEO": "aliyun:wan2.5-i2v-preview",
+        "IMGENX_TEXT_TO_VIDEO": "aliyun:wan2.5-t2v-preview",
+        "IMGENX_INSPECT_IMAGE": "aliyun:qwen3-vl-flash",
+        "IMGENX_ALIYUN_API_KEY": "api-key"
+      }
     }
   }
 }
@@ -156,31 +161,43 @@ imgenx server --transport streamable-http --no_tools text_to_video image_to_vide
 #### 10. image_to_video
 基于首帧与可选尾帧生成视频。
 
-#### 11. analyze_image
-分析图片内容，返回结构化或文本结果。
-
-#### 12. paste_image
+#### 11. paste_image
 将图片粘贴到背景图片的指定位置。
+
+#### 12. inspect_image
+分析图片内容，返回结构化或文本结果。
 
 ## 项目结构
 
 ```
-imgenx-mcp-server/
+imgenx/
 ├── imgenx/
 │   ├── server.py                  # MCP 服务器主文件（工具定义与运行）
 │   ├── factory.py                 # 预测器工厂（图片/视频/分析）
 │   ├── operator.py                # 图片处理操作模块
 │   ├── main.py                    # CLI 入口（imgenx）
 │   ├── script.py                  # 命令行生成图片/视频脚本
+│   ├── utils.py                   # 工具函数模块
 │   └── predictor/
 │       ├── base/
-│       │   ├── base_image_generator.py   # 基础图片生成器接口
-│       │   ├── base_video_generator.py   # 基础视频生成器接口
-│       │   └── base_image_analyzer.py    # 基础图片分析器接口
+│       │   ├── base_text_to_image.py      # 文本生成图片接口
+│       │   ├── base_image_to_image.py     # 图片生成图片接口
+│       │   ├── base_text_to_video.py      # 文本生成视频接口
+│       │   ├── base_image_to_video.py     # 图片生成视频接口
+│       │   └── base_image_inspector.py    # 图片分析接口
 │       └── generators/
-│           ├── doubao_image_generator.py   # 豆包图片生成器实现
-│           ├── doubao_video_generator.py   # 豆包视频生成器实现
-│           └── doubao_image_analyzer.py    # 豆包图片分析器实现
+│           ├── doubao/                    # 豆包服务提供商
+│           │   ├── text_to_image.py
+│           │   ├── image_to_image.py
+│           │   ├── text_to_video.py
+│           │   ├── image_to_video.py
+│           │   └── image_inspector.py
+│           └── aliyun/                   # 阿里云服务提供商
+│               ├── text_to_image.py
+│               ├── image_to_image.py
+│               ├── text_to_video.py
+│               ├── image_to_video.py
+│               └── image_inspector.py
 ├── pyproject.toml                 # 项目配置（入口脚本等）
 ├── uv.lock                        # 依赖锁（可选）
 └── README.md                      # 项目说明
@@ -195,12 +212,11 @@ imgenx-mcp-server/
    - 视频生成器（可选）：`{provider}_video_generator.py`
    - 图片分析器（可选）：`{provider}_image_analyzer.py`
 
-2. 实现 `BaseImageGenerator` 接口：
+2. 实现相应的基类接口，例如 `BaseTextToImage`：
 ```python
-from typing import List, Dict
-from imgenx.predictor.base.base_image_generator import BaseImageGenerator
+from imgenx.predictor.base.base_text_to_image import BaseTextToImage
 
-class ProviderImageGenerator(BaseImageGenerator):
+class ProviderTextToImage(BaseTextToImage):
     def __init__(self, model: str, api_key: str):
         self.model = model
         self.api_key = api_key
@@ -208,11 +224,6 @@ class ProviderImageGenerator(BaseImageGenerator):
     
     def text_to_image(self, prompt: str, size: str) -> List[Dict[str, str]]:
         # 实现文本生成图片逻辑
-        # 返回格式: [{"url": "图片URL"}]
-        pass
-    
-    def image_to_image(self, prompt: str, images: List[str], size: str) -> List[Dict[str, str]]:
-        # 实现图片生成图片逻辑（可选）
         # 返回格式: [{"url": "图片URL"}]
         pass
 ```
@@ -224,19 +235,22 @@ class ProviderImageGenerator(BaseImageGenerator):
 - `fastmcp>=2.12.4`: MCP 协议实现
 - `python-dotenv>=1.1.1`: 环境变量加载
 - `volcengine-python-sdk[ark]>=4.0.22`: 火山引擎 SDK（豆包服务）
+- `dashscope>=1.25.1`: 阿里云通义千问 SDK（阿里云服务）
 - `requests>=2.25.0`: HTTP 请求库（用于图片下载）
 - `pillow>=12.0.0`: 图片处理库（用于图片编辑操作）
 
 ## 更新日志
 
-### v0.2.3 (当前版本)
+### v0.3.0 (当前版本)
 
 #### 新增功能
+- **阿里云服务提供商**: 新增基于阿里云通义千问的图片生成服务支持
 - **图片粘贴**: 新增 `paste_image` 工具，支持将图片粘贴到背景图片的指定位置
 - **工具控制**: 新增 `--no_tools` 参数，支持在运行 MCP 服务器时禁用特定工具
 
 #### 功能优化
 - 完善图片处理工具集，增强图片编辑能力
+- 重构基类接口，提供更细分的功能模块
 
 ### v0.2.0
 

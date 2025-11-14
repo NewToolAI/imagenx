@@ -1,7 +1,7 @@
 [project]
 name = "imgenx"
-version = "0.2.3"
-description = "Add your description here"
+version = "0.3.0"
+description = "AI 图片/视频生成与处理套件，支持文本/图生图、文本/图生视频、图片分析与常用编辑（裁剪、缩放、转换、调参），可作为命令行工具或 MCP Server 使用"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
