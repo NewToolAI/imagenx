@@ -271,12 +271,12 @@ class ProviderTextToImage(BaseTextToImage):
 
 #### 新增功能
 - **视频生成**: 支持 `text_to_video` 与 `image_to_video` 两种方式
-- **图片分析**: 新增 `analyze_image` 工具，支持视觉模型分析
+- **图片分析**: 新增 `inspect_image` 工具，支持视觉模型分析
 - **图片处理工具集完善**: `get_image_info`、`crop_image`（比例坐标）、`resize_image`、`convert_image`、`adjust_image`
 
 #### 技术改进
 - 工厂模式统一图片/视频/分析三类预测器的发现与加载
-- 环境变量分离为 `IMGENX_IMAGE_MODEL`、`IMGENX_VIDEO_MODEL`、`IMGENX_ANALYZER_MODEL`
+- 环境变量分离为 `IMGENX_IMAGE_MODEL`、`IMGENX_VIDEO_MODEL`、`IMGENX_INSPECT_IMAGE`
 - MCP 工具集扩展，HTTP 服务器提供 `/health`、`/healthy` 健康检查路由
 - 支持本地文件与 URL 两种图片输入方式；下载工具统一图片/视频
 
