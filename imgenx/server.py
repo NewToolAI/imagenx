@@ -3,7 +3,6 @@ import re
 from pathlib import Path
 from typing import List, Dict, Tuple
 
-import requests
 from dotenv import load_dotenv
 from fastmcp import FastMCP
 from fastmcp.exceptions import ToolError
@@ -32,13 +31,14 @@ def analyze_query(plan: str, tool_chains: List[str]) -> Dict[str, str]:
         工具参数更详细的说明
     '''
     headers = get_http_headers(include_all=True)
+    env = os.environ
     result = {}
 
     for tool in tool_chains:
         tool = tool.strip()
 
         if tool == 'text_to_image':
-            model, api_key = utils.get_provider_model_api_key(tool, headers)
+            model, api_key = utils.get_provider_model_api_key(tool, headers, env)
             generator = factory.create_text_to_image(model, api_key)
             result[tool] = re.sub(r' +', ' ', generator.text_to_image.__doc__)
         elif tool == 'image_to_image':
@@ -73,7 +73,8 @@ def text_to_image(prompt: str, size: str = '2K') -> List:
         生成的图片url。
     '''
     headers = get_http_headers(include_all=True)
-    model, api_key = utils.get_provider_model_api_key('text_to_image', headers)
+    env = os.environ
+    model, api_key = utils.get_provider_model_api_key('text_to_image', headers, env)
 
     if model is None:
         raise ToolError('IMGENX_TEXT_TO_IMAGE is None')
@@ -105,7 +106,8 @@ def image_to_image(prompt: str, images: List[str], size: str = '2K') -> List:
         生成的图片url。
     '''
     headers = get_http_headers(include_all=True)
-    model, api_key = utils.get_provider_model_api_key('image_to_image', headers)
+    env = os.environ
+    model, api_key = utils.get_provider_model_api_key('image_to_image', headers, env)
 
     if model is None:
         raise ToolError('IMGENX_IMAGE_TO_IMAGE is None')
@@ -138,7 +140,8 @@ def text_to_video(prompt: str, resolution: str = '720p', ratio: str = '16:9', du
         视频下载的url
     '''
     headers = get_http_headers(include_all=True)
-    model, api_key = utils.get_provider_model_api_key('text_to_video', headers)
+    env = os.environ
+    model, api_key = utils.get_provider_model_api_key('text_to_video', headers, env)
 
     if model is None:
         raise ToolError('IMGENX_TEXT_TO_VIDEO is None')
@@ -174,7 +177,8 @@ def image_to_video(prompt: str, first_frame: str, last_frame: str|None = None,
         视频下载的url
     '''
     headers = get_http_headers(include_all=True)
-    model, api_key = utils.get_provider_model_api_key('image_to_video', headers)
+    env = os.environ
+    model, api_key = utils.get_provider_model_api_key('image_to_video', headers, env)
 
     if model is None:
         raise ToolError('IMGENX_IMAGE_TO_VIDEO is None')
@@ -205,7 +209,8 @@ def inspect_image(prompt: str, image: str) -> str:
         str: 图片分析结果
     '''
     headers = get_http_headers(include_all=True)
-    model, api_key = utils.get_provider_model_api_key('inspect_image', headers)
+    env = os.environ
+    model, api_key = utils.get_provider_model_api_key('inspect_image', headers, env)
 
     if model is None:
         raise ToolError('IMGENX_INSPECT_IMAGE is None')
