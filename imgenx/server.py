@@ -63,7 +63,7 @@ def analyze_query(plan: str, tool_chains: List[str]) -> Dict[str, str]:
 def text_to_image(prompt: str, size: str = '2K') -> List:
     '''根据输入的提示词生成图片，确保用户需要生成图片时调用此工具。
     确保用Markdown格式输出图片url，例如：[title](url)
-    确保生成图片后用download工具下载到本地
+    确保生成图片后用download工具下载到本地，如果没有download工具用命令行curl下载
         
     Args:
         prompt (str): 生成图片的提示词
@@ -95,7 +95,7 @@ def text_to_image(prompt: str, size: str = '2K') -> List:
 def image_to_image(prompt: str, images: List[str], size: str = '2K') -> List:
     '''根据输入的提示词和图片生成新图片，确保用户需要生成图片时调用此工具。
     确保用Markdown格式输出图片url，例如：[title](url)
-    确保生成图片后用download工具下载到本地
+    确保生成图片后用download下载到本地，如果没有download工具用命令行curl下载
         
     Args:
         prompt (str): 生成图片的提示词
@@ -128,7 +128,7 @@ def image_to_image(prompt: str, images: List[str], size: str = '2K') -> List:
 def text_to_video(prompt: str, resolution: str = '720p', ratio: str = '16:9', duration: int = 5) -> str:
     '''根据输入的提示词生成视频，确保用户需要生成视频时调用此工具。
     确保用Markdown格式输出视频url，例如：[title](url)
-    确保生成视频后用download工具下载到本地
+    确保生成视频后用download下载到本地，如果没有download工具用命令行curl下载
         
     Args:
         prompt (str): 生成图片的提示词
@@ -163,7 +163,7 @@ def image_to_video(prompt: str, first_frame: str, last_frame: str|None = None,
                   resolution: str = '720p', ratio: str = '16:9', duration: int = 5) -> str:
     '''根据输入的提示词和视频首尾帧图片生成视频，确保用户需要生成视频时调用此工具。
     确保用Markdown格式输出视频url，例如：[title](url)
-    确保生成视频后用download工具下载到本地
+    确保生成视频后用download工具下载到本地，如果没有download工具用命令行curl下载
         
     Args:
         prompt (str): 生成图片的提示词
