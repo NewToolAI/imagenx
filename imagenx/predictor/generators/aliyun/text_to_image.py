@@ -28,6 +28,7 @@ class AliyunTextToImage(BaseTextToImage):
             size=size.replace('x', '*'),
             watermark=False
         )
+        print(response)
 
         result = []
         for item in response.output.choices[0].message.content:

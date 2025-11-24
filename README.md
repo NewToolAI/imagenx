@@ -1,7 +1,7 @@
 <div align="center">
-  <img src="logo.jpg" alt="ImgenX MCP Server Logo" width="800" height="400">
+  <img src="logo.jpg" alt="Imagenx MCP Server Logo" width="800" height="400">
   
-  [![Version](https://img.shields.io/badge/Version-0.3.3-brightgreen.svg)](https://github.com/NewToolAI/imgenx/releases)
+  [![Version](https://img.shields.io/badge/Version-1.0.0-brightgreen.svg)](https://github.com/NewToolAI/imagenx/releases)
   [![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://www.python.org/downloads/)
   [![MCP](https://img.shields.io/badge/MCP-Compatible-green.svg)](https://modelcontextprotocol.io/)
   [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](#许可证)
@@ -38,13 +38,13 @@ https://github.com/user-attachments/assets/92749d6f-727e-4874-a008-6ded8b4d9e7b
 
 ### 配置环境变量
 
-```bash
-IMGENX_IMAGE_TO_IMAGE="provider:model"
-IMGENX_TEXT_TO_IMAGE="provider:model"
-IMGENX_IMAGE_TO_VIDEO="provider:model"
-IMGENX_TEXT_TO_VIDEO="provider:model"
-IMGENX_INSPECT_IMAGE="provier:model"
-IMGENX_<provider>_API_KEY="api-key"
+```
+IMAGENX_IMAGE_TO_IMAGE="provider:model"
+IMAGENX_TEXT_TO_IMAGE="provider:model"
+IMAGENX_IMAGE_TO_VIDEO="provider:model"
+IMAGENX_TEXT_TO_VIDEO="provider:model"
+IMAGENX_INSPECT_IMAGE="provier:model"
+IMAGENX_<provider>_API_KEY="api-key"
 ```
 或写入 .env 文件中
 
@@ -53,13 +53,13 @@ IMGENX_<provider>_API_KEY="api-key"
 #### 方式一：pip 安装（推荐）
 
 ```bash
-pip install imgenx
+pip install imagenx
 ```
 
 #### 方式二：从源码安装
 ```bash
-git clone https://github.com/NewToolAI/imgenx.git
-cd imgenx
+git clone https://github.com/NewToolAI/imagenx.git
+cd imagenx
 pip install -e .
 ```
 
@@ -69,11 +69,11 @@ pip install -e .
 
 ```
 # 生成图片（文本或图生图）
-imgenx image "一只在云上飞翔的猫"
+imagenx image "一只在云上飞翔的猫"
 
 # 生成视频（文本或基于首尾帧）
-imgenx video "一个人在运动"
-imgenx video "一个人在运动" --first_frame logo.jpg
+imagenx video "一个人在运动"
+imagenx video "一个人在运动" --first_frame logo.jpg
 ```
 
 ### 作为 MCP 服务器运行
@@ -82,23 +82,23 @@ imgenx video "一个人在运动" --first_frame logo.jpg
 ```json
 {
   "mcpServers": {
-    "imgenx-cli": {
+    "imagenx-cli": {
       "command": "uvx",
       "args": [
         "-U",
-        "imgenx",
+        "imagenx",
         "server",
         "--diable_tools",
         "text_to_video image_to_video"
       ],
       "env": {
-        "IMGENX_IMAGE_TO_IMAGE": "doubao:doubao-seedream-4-0-250828",
-        "IMGENX_TEXT_TO_IMAGE": "doubao:doubao-seedream-4-0-250828",
-        "IMGENX_IMAGE_TO_VIDEO": "doubao:doubao-seedance-1-0-pro-fast-251015",
-        "IMGENX_TEXT_TO_VIDEO": "doubao:doubao-seedance-1-0-pro-fast-251015",
-        "IMGENX_INSPECT_IMAGE": "aliyun:qwen3-vl-flash",
-        "IMGENX_DOUBAO_API_KEY": "api-key",
-        "IMGENX_ALIYUN_API_KEY": "api-key"
+        "IMAGENX_IMAGE_TO_IMAGE": "doubao:doubao-seedream-4-0-250828",
+        "IMAGENX_TEXT_TO_IMAGE": "doubao:doubao-seedream-4-0-250828",
+        "IMAGENX_IMAGE_TO_VIDEO": "doubao:doubao-seedance-1-0-pro-fast-251015",
+        "IMAGENX_TEXT_TO_VIDEO": "doubao:doubao-seedance-1-0-pro-fast-251015",
+        "IMAGENX_INSPECT_IMAGE": "aliyun:qwen3-vl-flash",
+        "IMAGENX_DOUBAO_API_KEY": "api-key",
+        "IMAGENX_ALIYUN_API_KEY": "api-key"
       }
     }
   }
@@ -107,22 +107,22 @@ imgenx video "一个人在运动" --first_frame logo.jpg
 
 #### HTTP 服务器模式
 ```bash
-imgenx server --transport streamable-http --host 0.0.0.0 --port 8000
-imgenx server --transport streamable-http --disable_tools text_to_video image_to_video  # 禁用视频生成工具
+imagenx server --transport streamable-http --host 0.0.0.0 --port 8000
+imagenx server --transport streamable-http --disable_tools text_to_video image_to_video  # 禁用视频生成工具
 ```
 
 ```json
 {
   "mcpServers": {
-    "imgenx-mcp-aliyun": {
+    "imagenx-mcp-aliyun": {
       "url": "http://127.0.0.1:8000/mcp",
       "headers": {
-        "IMGENX_IMAGE_TO_IMAGE": "aliyun:qwen-image-edit-plus",
-        "IMGENX_TEXT_TO_IMAGE": "aliyun:qwen-image-plus",
-        "IMGENX_IMAGE_TO_VIDEO": "aliyun:wan2.5-i2v-preview",
-        "IMGENX_TEXT_TO_VIDEO": "aliyun:wan2.5-t2v-preview",
-        "IMGENX_INSPECT_IMAGE": "aliyun:qwen3-vl-flash",
-        "IMGENX_ALIYUN_API_KEY": "api-key"
+        "IMAGENX_IMAGE_TO_IMAGE": "aliyun:qwen-image-edit-plus",
+        "IMAGENX_TEXT_TO_IMAGE": "aliyun:qwen-image-plus",
+        "IMAGENX_IMAGE_TO_VIDEO": "aliyun:wan2.5-i2v-preview",
+        "IMAGENX_TEXT_TO_VIDEO": "aliyun:wan2.5-t2v-preview",
+        "IMAGENX_INSPECT_IMAGE": "aliyun:qwen3-vl-flash",
+        "IMAGENX_ALIYUN_API_KEY": "api-key"
       }
     }
   }
@@ -133,15 +133,15 @@ imgenx server --transport streamable-http --disable_tools text_to_video image_to
 ```
 {
   "mcpServers": {
-    "imgenx-mcp-cloud": {
-      "url": "https://imgenx.fastmcp.app/mcp",
+    "imagenx-mcp-cloud": {
+      "url": "https://imagenx.fastmcp.app/mcp",
       "headers": {
-        "IMGENX_IMAGE_TO_IMAGE": "aliyun:qwen-image-edit-plus",
-        "IMGENX_TEXT_TO_IMAGE": "aliyun:qwen-image-plus",
-        "IMGENX_IMAGE_TO_VIDEO": "aliyun:wan2.5-i2v-preview",
-        "IMGENX_TEXT_TO_VIDEO": "aliyun:wan2.5-t2v-preview",
-        "IMGENX_INSPECT_IMAGE": "aliyun:qwen3-vl-flash",
-        "IMGENX_ALIYUN_API_KEY": "api-key"
+        "IMAGENX_IMAGE_TO_IMAGE": "aliyun:qwen-image-edit-plus",
+        "IMAGENX_TEXT_TO_IMAGE": "aliyun:qwen-image-plus",
+        "IMAGENX_IMAGE_TO_VIDEO": "aliyun:wan2.5-i2v-preview",
+        "IMAGENX_TEXT_TO_VIDEO": "aliyun:wan2.5-t2v-preview",
+        "IMAGENX_INSPECT_IMAGE": "aliyun:qwen3-vl-flash",
+        "IMAGENX_ALIYUN_API_KEY": "api-key"
       }
     }
   }
@@ -189,12 +189,12 @@ imgenx server --transport streamable-http --disable_tools text_to_video image_to
 ## 项目结构
 
 ```
-imgenx/
-├── imgenx/
+imagenx/
+├── imagenx/
 │   ├── server.py                  # MCP 服务器主文件（工具定义与运行）
 │   ├── factory.py                 # 预测器工厂（图片/视频/分析）
 │   ├── operator.py                # 图片处理操作模块
-│   ├── main.py                    # CLI 入口（imgenx）
+│   ├── main.py                    # CLI 入口（imagenx）
 │   ├── script.py                  # 命令行生成图片/视频脚本
 │   ├── utils.py                   # 工具函数模块
 │   └── predictor/
@@ -229,7 +229,7 @@ imgenx/
 1. 实现相应的基类接口，例如 `BaseTextToImage`：
 
 ```python
-from imgenx.predictor.base.base_text_to_image import BaseTextToImage
+from imagenx.predictor.base.base_text_to_image import BaseTextToImage
 
 class ProviderTextToImage(BaseTextToImage):
     def __init__(self, model: str, api_key: str):
@@ -276,7 +276,7 @@ class ProviderTextToImage(BaseTextToImage):
 
 #### 技术改进
 - 工厂模式统一图片/视频/分析三类预测器的发现与加载
-- 环境变量分离为 `IMGENX_IMAGE_MODEL`、`IMGENX_VIDEO_MODEL`、`IMGENX_INSPECT_IMAGE`
+- 环境变量分离为 `IMAGENX_IMAGE_MODEL`、`IMAGENX_VIDEO_MODEL`、`IMAGENX_INSPECT_IMAGE`
 - MCP 工具集扩展，HTTP 服务器提供 `/health`、`/healthy` 健康检查路由
 - 支持本地文件与 URL 两种图片输入方式；下载工具统一图片/视频
 
