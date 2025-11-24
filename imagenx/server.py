@@ -14,7 +14,7 @@ from imagenx import factory, operator, utils
 load_dotenv()
 
 mcp = FastMCP(
-    name='imgenx-mcp-server',
+    name='imagenx-mcp-server',
     instructions='图片视频生成工具，按照用户需求生成图片或视频',
 )
 
@@ -78,10 +78,10 @@ def text_to_image(prompt: str, size: str) -> List:
     model, api_key = utils.get_provider_model_api_key('text_to_image', headers, env)
 
     if model is None:
-        raise ToolError('IMGENX_TEXT_TO_IMAGE is None')
+        raise ToolError('IMAGENX_TEXT_TO_IMAGE is None')
 
     if api_key is None:
-        raise ToolError(f'IMGENX_{model.split(":")[0].upper()}_API_KEY is None')
+        raise ToolError(f'IMAGENX_{model.split(":")[0].upper()}_API_KEY is None')
 
     try:
         generator = factory.create_text_to_image(model, api_key)
@@ -112,10 +112,10 @@ def image_to_image(prompt: str, images: List[str], size: str) -> List:
     model, api_key = utils.get_provider_model_api_key('image_to_image', headers, env)
 
     if model is None:
-        raise ToolError('IMGENX_IMAGE_TO_IMAGE is None')
+        raise ToolError('IMAGENX_IMAGE_TO_IMAGE is None')
 
     if api_key is None:
-        raise ToolError(f'IMGENX_{model.split(":")[0].upper()}_API_KEY is None')
+        raise ToolError(f'IMAGENX_{model.split(":")[0].upper()}_API_KEY is None')
 
     try:
         generator = factory.create_image_to_image(model, api_key)
@@ -147,10 +147,10 @@ def text_to_video(prompt: str, resolution: str, ratio: str, duration: int) -> st
     model, api_key = utils.get_provider_model_api_key('text_to_video', headers, env)
 
     if model is None:
-        raise ToolError('IMGENX_TEXT_TO_VIDEO is None')
+        raise ToolError('IMAGENX_TEXT_TO_VIDEO is None')
 
     if api_key is None:
-        raise ToolError(f'IMGENX_{model.split(":")[0].upper()}_API_KEY is None')
+        raise ToolError(f'IMAGENX_{model.split(":")[0].upper()}_API_KEY is None')
 
     try:
         generator = factory.create_text_to_video(model, api_key)
@@ -185,10 +185,10 @@ def image_to_video(prompt: str, resolution: str, ratio: str, duration: int,
     model, api_key = utils.get_provider_model_api_key('image_to_video', headers, env)
 
     if model is None:
-        raise ToolError('IMGENX_IMAGE_TO_VIDEO is None')
+        raise ToolError('IMAGENX_IMAGE_TO_VIDEO is None')
 
     if api_key is None:
-        raise ToolError(f'IMGENX_{model.split(":")[0].upper()}_API_KEY is None')
+        raise ToolError(f'IMAGENX_{model.split(":")[0].upper()}_API_KEY is None')
 
     try:
         generator = factory.create_image_to_video(model, api_key)
@@ -217,10 +217,10 @@ def inspect_image(prompt: str, image: str) -> str:
     model, api_key = utils.get_provider_model_api_key('inspect_image', headers, env)
 
     if model is None:
-        raise ToolError('IMGENX_INSPECT_IMAGE is None')
+        raise ToolError('IMAGENX_INSPECT_IMAGE is None')
 
     if api_key is None:
-        raise ToolError(f'IMGENX_{model.split(":")[0].upper()}_API_KEY is None')
+        raise ToolError(f'IMAGENX_{model.split(":")[0].upper()}_API_KEY is None')
 
     try:
         info = operator.get_image_info(image)

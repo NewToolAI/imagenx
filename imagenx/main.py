@@ -2,7 +2,7 @@ from argparse import ArgumentParser
 
 
 def get_version():
-    return '1.0.3'
+    return '1.0.4'
 
 
 def run():
