@@ -15,7 +15,7 @@ class DoubaoImageToImage(BaseImageToImage):
             api_key=api_key,
         )
 
-    def image_to_image(self, prompt: str, images: List[str], size: str) -> List[Dict[str, str]]:
+    def image_to_image(self, prompt: str, images: List[str], size: str = '2048x2048') -> List[Dict[str, str]]:
         '''根据输入的提示词和图片生成图片。
 
         Args:

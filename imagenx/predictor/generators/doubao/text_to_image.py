@@ -13,7 +13,7 @@ class DoubaoTextToImage(BaseTextToImage):
             api_key=api_key,
         )
 
-    def text_to_image(self, prompt: str, size: str) -> List[Dict[str, str]]:
+    def text_to_image(self, prompt: str, size: str = '2048x2048') -> List[Dict[str, str]]:
         '''根据提示词生成图片。
 
         Args:

@@ -8,7 +8,7 @@ class AliyunTextToImage(BaseTextToImage):
         self.model = model
         self.api_key = api_key
 
-    def text_to_image(self, prompt: str, size: str):
+    def text_to_image(self, prompt: str, size: str = '1328*1328'):
         '''根据提示词生成图片
 
         Args:

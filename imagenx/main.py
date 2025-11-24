@@ -1,36 +1,35 @@
 from argparse import ArgumentParser
-from pathlib import Path
 
 
 def get_version():
-    return '1.0.2'
+    return '1.0.3'
 
 
 def run():
     parser = ArgumentParser()
-    parser.add_argument('-v', '--version', action='version', version=get_version(), help='显示版本号')
+    parser.add_argument('-v', '--version', action='version', version=get_version(), help='Show version number')
     subparsers = parser.add_subparsers(dest='command', required=True)
 
-    server_parser = subparsers.add_parser('server', help='启动 MCP 服务器')
-    server_parser.add_argument('--transport', default='stdio', help='stdio|sse|streamable-http')
-    server_parser.add_argument('--host', default='0.0.0.0', help='主机地址')
-    server_parser.add_argument('--port', default=8000, type=int, help='端口')
-    server_parser.add_argument('--disable_tools', nargs='+', default=None, help='禁用的工具名列表（用空格分隔）')
+    server_parser = subparsers.add_parser('server', help='Start MCP server')
+    server_parser.add_argument('--transport', default='stdio', help='Transport type: stdio, sse, or streamable-http')
+    server_parser.add_argument('--host', default='0.0.0.0', help='Host address')
+    server_parser.add_argument('--port', default=8000, type=int, help='Port number')
+    server_parser.add_argument('--disable_tools', nargs='+', default=None, help='List of disabled tool names (space-separated)')
 
-    image_parser = subparsers.add_parser('image', help='生成图片')
-    image_parser.add_argument('prompt', help='生成图片的提示词')
-    image_parser.add_argument('--images', nargs='+', default=None, help='输入图片路径列表')
-    image_parser.add_argument('--size', default='2K', help='生成图像的分辨率或宽高像素值，分辨率可选值：1K、2K、4K，宽高像素可选值：2048x2048、2304x1728、1728x2304、2560x1440、1440x2560、2496x1664、1664x2496、3024x1296')
-    image_parser.add_argument('--output', default='imgenx.jpg', help='输出文件或目录路径')
+    image_parser = subparsers.add_parser('image', help='Generate image')
+    image_parser.add_argument('prompt', help='Prompt for image generation')
+    image_parser.add_argument('--images', nargs='+', default=None, help='Input image path list')
+    image_parser.add_argument('--size', default=None, help='Image resolution or pixel dimensions.')
+    image_parser.add_argument('--output', default='imagenx.jpg', help='Output file or directory path')
 
-    video_parser = subparsers.add_parser('video', help='生成视频')
-    video_parser.add_argument('prompt', help='生成视频的提示词')
-    video_parser.add_argument('--first_frame', default=None, help='输入视频的第一帧路径')
-    video_parser.add_argument('--last_frame', default=None, help='输入视频的最后一帧路径')
-    video_parser.add_argument('--resolution', default='720p', help='生成视频的分辨率，可选值：480p、720、1080p')
-    video_parser.add_argument('--ratio', default='16:9', help='生成视频的宽高比，可选值：16:9、4:3、1:1、3:4、9:16、21:9')
-    video_parser.add_argument('--duration', default=5, type=int, help='生成视频的时长，单位秒')
-    video_parser.add_argument('--output', default='imgenx.mp4', help='输出文件路径')
+    video_parser = subparsers.add_parser('video', help='Generate video')
+    video_parser.add_argument('prompt', help='Prompt for video generation')
+    video_parser.add_argument('--first_frame', default=None, help='Path to the first frame of input video')
+    video_parser.add_argument('--last_frame', default=None, help='Path to the last frame of input video')
+    video_parser.add_argument('--resolution', default='720p', help='Video resolution. Options: 480p, 720p, 1080p')
+    video_parser.add_argument('--ratio', default='16:9', help='Video aspect ratio. Options: 16:9, 4:3, 1:1, 3:4, 9:16, 21:9')
+    video_parser.add_argument('--duration', default=5, type=int, help='Video duration in seconds')
+    video_parser.add_argument('--output', default='imagenx.mp4', help='Output file path')
 
     args = parser.parse_args()
 

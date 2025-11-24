@@ -11,7 +11,7 @@ class AliyunImageToImage(BaseImageToImage):
         self.model = model
         self.api_key = api_key
 
-    def image_to_image(self, prompt: str, images: list, size: str):
+    def image_to_image(self, prompt: str, images: list, size: str = '1328*1328'):
         '''根据提示词和图片生成图片
 
         Args:

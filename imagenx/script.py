@@ -12,33 +12,42 @@ from imagenx import factory, utils
 load_dotenv()
 
 
-def text_to_image(model: str, api_key: str, prompt: str, size: str) -> List[Dict[str, str]]:
+def text_to_image(model: str, api_key: str, prompt: str, size: str|None = None):
     generator = factory.create_text_to_image(model, api_key)
-    url_list = generator.text_to_image(prompt, size)
+
+    if size is None:
+        url_list = generator.text_to_image(prompt)
+    else:
+        url_list = generator.text_to_image(prompt, size)
+
     return url_list
 
-
-def image_to_image(model: str, api_key: str, prompt: str, images: List[str], size: str) -> List[Dict[str, str]]:
+def image_to_image(model: str, api_key: str, prompt: str, images: List[str], size: str|None = None):
     generator = factory.create_image_to_image(model, api_key)
-    url_list = generator.image_to_image(prompt, images, size)
+
+    if size is None:
+        url_list = generator.image_to_image(prompt, images)
+    else:
+        url_list = generator.image_to_image(prompt, images, size)
+
     return url_list
 
 
 def text_to_video(model: str, api_key: str, prompt: str,
-                  resolution: str = '720p', ratio: str = '16:9', duration: int = 5) -> str:
+                  resolution: str = '720p', ratio: str = '16:9', duration: int = 5):
     generator = factory.create_text_to_video(model, api_key)
     url = generator.text_to_video(prompt, resolution, ratio, duration)
     return url
 
 
 def image_to_video(model: str, api_key: str, prompt: str, first_frame: str, last_frame: str|None = None,
-                  resolution: str = '720p', ratio: str = '16:9', duration: int = 5) -> str:
+                  resolution: str = '720p', ratio: str = '16:9', duration: int = 5):
     generator = factory.create_image_to_video(model, api_key)
     url = generator.image_to_video(prompt, first_frame, last_frame, resolution, ratio, duration)
     return url
 
 
-def gen_image(prompt: str, size: str, output: str, images: List[str] = None):
+def gen_image(prompt: str, output: str, images: List[str] = None, size: str|None = None):
     print('Generate images...')
     output = Path(output)
 
@@ -46,23 +55,23 @@ def gen_image(prompt: str, size: str, output: str, images: List[str] = None):
         raise ValueError(f'Output path {output} already exists.')
 
     if images is not None and len(images) > 0:
-        model, api_key = utils.get_provider_model_api_key('text_to_image', os.environ)
+        model, api_key = utils.get_provider_model_api_key('image_to_image', {}, os.environ)
 
         if model is None:
-            raise ValueError('Envrioment variable IMGENX_IMAGE_TO_IMAGE is empty.')
+            raise ValueError('Envrioment variable IMAGENX_IMAGE_TO_IMAGE is empty.')
 
         if api_key is None:
-            raise ValueError(f'Envrioment variable IMGENX_{model.split(":")[0].upper()}_API_KEY is empty.')
+            raise ValueError(f'Envrioment variable IMAGENX_{model.split(":")[0].upper()}_API_KEY is empty.')
 
         url_list = image_to_image(model, api_key, prompt, images, size)
     else:
-        model, api_key = utils.get_provider_model_api_key('text_to_image', os.environ)
+        model, api_key = utils.get_provider_model_api_key('text_to_image', {}, os.environ)
 
         if model is None:
-            raise ValueError('Envrioment variable IMGENX_TEXT_TO_IMAGE is empty.')
+            raise ValueError('Envrioment variable IMAGENX_TEXT_TO_IMAGE is empty.')
 
         if api_key is None:
-            raise ValueError(f'Envrioment variable IMGENX_{model.split(":")[0].upper()}_API_KEY is empty.')
+            raise ValueError(f'Envrioment variable IMAGENX_{model.split(":")[0].upper()}_API_KEY is empty.')
 
         url_list = text_to_image(model, api_key, prompt, size)
 
@@ -92,23 +101,23 @@ def gen_video(prompt: str, first_frame: str|None = None, last_frame: str|None = 
         raise ValueError(f'Output path {output} already exists.')
 
     if first_frame is None and last_frame is None:
-        model, api_key = utils.get_provider_model_api_key('text_to_video', os.environ)
+        model, api_key = utils.get_provider_model_api_key('text_to_video', {}, os.environ)
 
         if model is None:
-            raise ValueError('Envrioment variable IMGENX_TEXT_TO_VIDEO is empty.')
+            raise ValueError('Envrioment variable IMAGENX_TEXT_TO_VIDEO is empty.')
 
         if api_key is None:
-            raise ValueError(f'Envrioment variable IMGENX_{model.split(":")[0].upper()}_API_KEY is empty.')
+            raise ValueError(f'Envrioment variable IMAGENX_{model.split(":")[0].upper()}_API_KEY is empty.')
 
         url = text_to_video(model, api_key, prompt, resolution, ratio, duration)
     else:
-        model, api_key = utils.get_provider_model_api_key('image_to_video', os.environ)
+        model, api_key = utils.get_provider_model_api_key('image_to_video', {}, os.environ)
 
         if model is None:
-            raise ValueError('Envrioment variable IMGENX_IMAGE_TO_VIDEO is empty.')
+            raise ValueError('Envrioment variable IMAGENX_IMAGE_TO_VIDEO is empty.')
 
         if api_key is None:
-            raise ValueError(f'Envrioment variable IMGENX_{model.split(":")[0].upper()}_API_KEY is empty.')
+            raise ValueError(f'Envrioment variable IMAGENX_{model.split(":")[0].upper()}_API_KEY is empty.')
 
         url = image_to_video(model, api_key, prompt, first_frame, last_frame, resolution, ratio, duration)
 
