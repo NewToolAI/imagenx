@@ -1,12 +1,12 @@
 <div align="center">
   <img src="logo.jpg" alt="Imagenx MCP Server Logo" width="800" height="400">
   
-  [![Version](https://img.shields.io/badge/Version-1.0.0-brightgreen.svg)](https://github.com/NewToolAI/imagenx/releases)
+  [![Version](https://img.shields.io/badge/Version-1.0.1-brightgreen.svg)](https://github.com/NewToolAI/imagenx/releases)
   [![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://www.python.org/downloads/)
   [![MCP](https://img.shields.io/badge/MCP-Compatible-green.svg)](https://modelcontextprotocol.io/)
   [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](#许可证)
 
-**AI 图片/视频生成与处理套件，支持文本/图生图、文本/图生视频、图片分析与常用编辑（裁剪、缩放、转换、调参），可作为命令行工具或 MCP Server 使用**
+**AI 图片/视频生成与处理工具，支持文本/图生图、文本/图生视频、图片分析与常用编辑（裁剪、缩放、转换、调参），可作为命令行工具或 MCP Server 使用**
 </div>
 
 https://github.com/user-attachments/assets/92749d6f-727e-4874-a008-6ded8b4d9e7b
@@ -256,7 +256,17 @@ class ProviderTextToImage(BaseTextToImage):
 
 ## 更新日志
 
-### v0.3.0 (当前版本)
+### v1.0.0 (当前版本)
+
+#### 新增功能
+- **查询分析工具**: 新增 `analyze_query` 工具，支持分析用户需求并制定工具调用计划
+- **Cloud 服务**: 新增云端免安装服务支持，可通过 HTTP 方式使用（不包含 download 工具）
+
+#### 功能优化
+- 统一版本号为 1.0.0，项目进入稳定版本阶段
+- 优化工具链调用流程，提升用户体验
+
+### v0.3.0
 
 #### 新增功能
 - **阿里云服务提供商**: 新增基于阿里云通义千问的图片生成服务支持

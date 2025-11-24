@@ -61,9 +61,10 @@ def analyze_query(plan: str, tool_chains: List[str]) -> Dict[str, str]:
 
 @mcp.tool
 def text_to_image(prompt: str, size: str) -> List:
-    '''根据输入的提示词生成图片，确保用户需要生成图片时调用此工具。
+    '''根据输入的提示词生成图片.
+    确保用户需要文生图时先调用`analyze_query`工具，再调用此工具。
     确保用Markdown格式输出图片url，例如：[title](url)
-    确保生成图片后用download工具下载到本地，如果没有download工具用命令行curl下载
+    确保生成图片后用`download`工具下载到本地，如果没有`download`工具，用命令行`curl`命令下载
         
     Args:
         prompt (str): 生成图片的提示词
@@ -93,9 +94,10 @@ def text_to_image(prompt: str, size: str) -> List:
 
 @mcp.tool
 def image_to_image(prompt: str, images: List[str], size: str) -> List:
-    '''根据输入的提示词和图片生成新图片，确保用户需要生成图片时调用此工具。
+    '''根据输入的提示词和图片生成新图片。
+    确保用户需要图生图时先调用`analyze_query`工具，再调用此工具。
     确保用Markdown格式输出图片url，例如：[title](url)
-    确保生成图片后用download下载到本地，如果没有download工具用命令行curl下载
+    确保生成图片后用`download`工具下载到本地，如果没有`download`工具，用命令行`curl`命令下载
         
     Args:
         prompt (str): 生成图片的提示词
@@ -126,9 +128,10 @@ def image_to_image(prompt: str, images: List[str], size: str) -> List:
 
 @mcp.tool
 def text_to_video(prompt: str, resolution: str, ratio: str, duration: int) -> str:
-    '''根据输入的提示词生成视频，确保用户需要生成视频时调用此工具。
+    '''根据输入的提示词生成视频。
+    确保用户需要文生视频时先调用`analyze_query`工具，再调用此工具。
     确保用Markdown格式输出视频url，例如：[title](url)
-    确保生成视频后用download下载到本地，如果没有download工具用命令行curl下载
+    确保生成视频后用`download`工具下载到本地，如果没有`download`工具，用命令行`curl`命令下载
         
     Args:
         prompt (str): 生成图片的提示词
@@ -161,9 +164,10 @@ def text_to_video(prompt: str, resolution: str, ratio: str, duration: int) -> st
 @mcp.tool
 def image_to_video(prompt: str, resolution: str, ratio: str, duration: int, 
                    first_frame: str, last_frame: str|None = None) -> str:
-    '''根据输入的提示词和视频首尾帧图片生成视频，确保用户需要生成视频时调用此工具。
+    '''根据输入的提示词和视频首尾帧图片生成视频。
+    确保用户需要图生视频时先调用`analyze_query`工具，再调用此工具。
     确保用Markdown格式输出视频url，例如：[title](url)
-    确保生成视频后用download工具下载到本地，如果没有download工具用命令行curl下载
+    确保生成视频后用`download`工具下载到本地，如果没有`download`工具，用命令行`curl`命令下载
         
     Args:
         prompt (str): 生成图片的提示词
