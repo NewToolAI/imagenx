@@ -2,7 +2,7 @@ import base64
 from pathlib import Path
 import dashscope
 
-from imgenx.predictor.base.base_image_to_video import BaseImageToVideo
+from imagenx.predictor.base.base_image_to_video import BaseImageToVideo
 
 
 class AliyunImageToVideo(BaseImageToVideo):

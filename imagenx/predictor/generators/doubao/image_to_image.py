@@ -3,7 +3,7 @@ from pathlib import Path
 from typing import List, Dict
 from volcenginesdkarkruntime import Ark
 
-from imgenx.predictor.base.base_image_to_image import BaseImageToImage
+from imagenx.predictor.base.base_image_to_image import BaseImageToImage
 
 
 class DoubaoImageToImage(BaseImageToImage):

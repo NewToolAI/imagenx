@@ -1,7 +1,7 @@
 import time
 from volcenginesdkarkruntime import Ark
 
-from imgenx.predictor.base.base_text_to_video import BaseTextToVideo
+from imagenx.predictor.base.base_text_to_video import BaseTextToVideo
 
 
 class DoubaoTextToVideo(BaseTextToVideo):

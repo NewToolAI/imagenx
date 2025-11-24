@@ -1,4 +1,4 @@
-from imgenx.predictor.base.base_text_to_video import BaseTextToVideo
+from imagenx.predictor.base.base_text_to_video import BaseTextToVideo
 
 
 class AliyunTextToVideo(BaseTextToVideo):

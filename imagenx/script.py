@@ -6,7 +6,7 @@ from datetime import datetime
 import requests
 from dotenv import load_dotenv
 
-from imgenx import factory, utils
+from imagenx import factory, utils
 
 
 load_dotenv()

@@ -1,7 +1,7 @@
 from typing import List, Dict
 from volcenginesdkarkruntime import Ark
 
-from imgenx.predictor.base.base_text_to_image import BaseTextToImage
+from imagenx.predictor.base.base_text_to_image import BaseTextToImage
 
 
 class DoubaoTextToImage(BaseTextToImage):

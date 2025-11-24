@@ -1,5 +1,5 @@
 import dashscope
-from imgenx.predictor.base.base_text_to_image import BaseTextToImage
+from imagenx.predictor.base.base_text_to_image import BaseTextToImage
 
 
 class AliyunTextToImage(BaseTextToImage):

@@ -1,7 +1,7 @@
 import base64
 import time
 from pathlib import Path
-from imgenx.predictor.base.base_image_to_video import BaseImageToVideo
+from imagenx.predictor.base.base_image_to_video import BaseImageToVideo
 from volcenginesdkarkruntime import Ark
 
 

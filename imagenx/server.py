@@ -8,7 +8,7 @@ from fastmcp import FastMCP
 from fastmcp.exceptions import ToolError
 from fastmcp.server.dependencies import get_http_headers
 
-from imgenx import factory, operator, utils
+from imagenx import factory, operator, utils
 
 
 load_dotenv()

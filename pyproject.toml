@@ -1,5 +1,5 @@
 [project]
-name = "imgenx"
+name = "imagenx"
 version = "0.3.3"
 description = "AI 图片/视频生成与处理套件，支持文本/图生图、文本/图生视频、图片分析与常用编辑（裁剪、缩放、转换、调参），可作为命令行工具或 MCP Server 使用"
 readme = "README.md"
@@ -14,7 +14,7 @@ dependencies = [
 ]
 
 [project.urls]
-repository = "https://github.com/NewToolAI/imgenx"
+repository = "https://github.com/NewToolAI/imagenx"
 
 [project.scripts]
-imgenx = "imgenx.main:run"
+imagenx = "imagenx.main:run"

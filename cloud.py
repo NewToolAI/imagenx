@@ -1,3 +1,3 @@
-from imgenx.server import mcp
+from imagenx.server import mcp
 
 mcp.remove_tool('download')

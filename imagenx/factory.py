@@ -35,7 +35,7 @@ def create_predictor(model: str, api_key: str, role: str):
     if provider not in get_providers():
         raise ValueError(f'Provider {provider} not found.')
 
-    predictor_package = f'imgenx.predictor.generators.{provider}.{role.lower()}'
+    predictor_package = f'imagenx.predictor.generators.{provider}.{role.lower()}'
     role_parts = [p.capitalize() for p in role.split('_')]
     predictor_class = f'{provider.capitalize()}{"".join(role_parts)}'
 
