@@ -1,7 +1,7 @@
 <div align="center">
   <img src="logo.jpg" alt="Imagenx MCP Server Logo" width="800" height="400">
   
-  [![Version](https://img.shields.io/badge/Version-1.0.4-brightgreen.svg)](https://github.com/NewToolAI/imagenx/releases)
+  [![Version](https://img.shields.io/badge/Version-1.0.5-brightgreen.svg)](https://github.com/NewToolAI/imagenx/releases)
   [![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://www.python.org/downloads/)
   [![MCP](https://img.shields.io/badge/MCP-Compatible-green.svg)](https://modelcontextprotocol.io/)
   [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](#许可证)

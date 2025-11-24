@@ -237,6 +237,7 @@ def inspect_image(prompt: str, image: str) -> str:
 @mcp.tool
 def download(url: str, path: str) -> str:
     '''读取生成的图片或视频 url 并保存到本地
+    优先保存到当前项目目录下
     
     Args:
         url (str): 图片或视频 url
