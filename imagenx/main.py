@@ -3,18 +3,7 @@ from pathlib import Path
 
 
 def get_version():
-    try:
-        pyproject_path = Path(__file__).parent.parent / 'pyproject.toml'
-        if pyproject_path.exists():
-            with open(pyproject_path, 'r', encoding='utf-8') as f:
-                for line in f:
-                    if line.strip().startswith('version'):
-                        parts = line.split('=')
-                        if len(parts) == 2 and parts[0].strip() == 'version':
-                            return parts[1].strip().strip('"').strip("'")
-    except Exception:
-        pass
-    return 'unknown'
+    return '1.0.2'
 
 
 def run():
