@@ -1,8 +1,25 @@
 from argparse import ArgumentParser
+from pathlib import Path
+
+
+def get_version():
+    try:
+        pyproject_path = Path(__file__).parent.parent / 'pyproject.toml'
+        if pyproject_path.exists():
+            with open(pyproject_path, 'r', encoding='utf-8') as f:
+                for line in f:
+                    if line.strip().startswith('version'):
+                        parts = line.split('=')
+                        if len(parts) == 2 and parts[0].strip() == 'version':
+                            return parts[1].strip().strip('"').strip("'")
+    except Exception:
+        pass
+    return 'unknown'
 
 
 def run():
     parser = ArgumentParser()
+    parser.add_argument('-v', '--version', action='version', version=get_version(), help='显示版本号')
     subparsers = parser.add_subparsers(dest='command', required=True)
 
     server_parser = subparsers.add_parser('server', help='启动 MCP 服务器')
